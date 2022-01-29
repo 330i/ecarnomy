@@ -20,29 +20,42 @@ class _HomePageState extends State<HomePage> {
           width: MediaQuery.of(context).size.width,
           child: Column(
             children: <Widget>[
-              const Text(
-                'Hello Mark',
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              ListView(
-                children: const <Widget>[
-                  Card(
-                    child: ListTile(
-                      leading: FlutterLogo(size: 72.0),
-                      title: Text('Three-line ListTile'),
-                      subtitle: Text(
-                          'A sufficiently long subtitle warrants three lines.'
-                      ),
-                      trailing: Icon(Icons.more_vert),
-                      isThreeLine: true,
+              Row(
+                children: const [
+                  Text(
+                    'Hello Mark',
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
-                ]
+                  Spacer(
+                    flex: 1,
+                  )
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: 500,
+                  height: 500,
+                  child: ListView(
+                    children: const <Widget>[
+                      Card(
+                        child: ListTile(
+                          leading: Icon(Icons.directions_car_rounded, size: 60,),
+                          title: Text('Make Model'),
+                          subtitle: Text(
+                              '1998 \n\$12/month \n12 MPG'
+                          ),
+                          isThreeLine: true,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               )
-            ]
+            ],
           ),
         ),
       ),
