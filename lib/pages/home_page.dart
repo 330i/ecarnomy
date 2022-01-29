@@ -15,7 +15,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 28.0),
-        child: Container(
+        child: SizedBox(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Column(
@@ -28,49 +28,21 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               ListView(
-                children: <Widget>[
-                  Container(
-                    width: 200,
-                    height: 200,
-                    child: Card(),
+                children: const <Widget>[
+                  Card(
+                    child: ListTile(
+                      leading: FlutterLogo(size: 72.0),
+                      title: Text('Three-line ListTile'),
+                      subtitle: Text(
+                          'A sufficiently long subtitle warrants three lines.'
+                      ),
+                      trailing: Icon(Icons.more_vert),
+                      isThreeLine: true,
+                    ),
                   ),
                 ]
               )
             ]
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget Card() {
-    return Padding(
-      padding: const EdgeInsets.all(22.0),
-      child: Neumorphic(
-        style: NeumorphicStyle(
-          depth: 4,
-          shape: NeumorphicShape.concave,
-        ),
-        child: Center(
-          child: Column(
-            children: [
-              Container(
-                height: 15,
-              ),
-              Text(
-                'This Week',
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              Container(
-                height: 15,
-              ),
-              Container(
-                height: 15,
-              ),
-            ],
           ),
         ),
       ),
