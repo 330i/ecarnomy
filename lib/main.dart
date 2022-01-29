@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tamuhackprojectlol/backend/api.dart';
 
 void main() {
   runApp(const MyApp());
@@ -98,6 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
             const Text(
               'You have pushed the button this many times:',
             ),
+            FlatButton(
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
