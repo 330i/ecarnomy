@@ -27,6 +27,13 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+
+  firebase_auth: ^3.3.6
+  flutter_neumorphic: ^3.2.0
+  page_transition: ^2.0.5
+  cloud_firestore: ^3.1.7
+  firebase_core: ^1.12.0
+
   flutter:
     sdk: flutter
 
