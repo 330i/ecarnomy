@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "832962874966",
+    "project_id": "tamuhack2022-9a807",
+    "storage_bucket": "tamuhack2022-9a807.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:832962874966:android:4e1396fbfaa046967735f7",
+        "android_client_info": {
+          "package_name": "com.example.tamuhackprojectlol"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "832962874966-f01im8idrpifi2jcpn9o1b0478i85qs6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tamuhackprojectlol",
+            "certificate_hash": "dd1581503d493ffaad529e2843687ec3340347d5"
+          }
+        },
+        {
+          "client_id": "832962874966-qt4d34vlhoptsdtthunl4fm9r49bc2l5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnnpKIGXISREl05POiu5KJoKjB_S4vILI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "832962874966-qt4d34vlhoptsdtthunl4fm9r49bc2l5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
