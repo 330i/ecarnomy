@@ -125,6 +125,26 @@ class _HomePageState extends State<HomePage> {
                                       color: Colors.black,
                                     ),
                                   ),
+                                    FutureBuilder<Object>(
+                                       future: FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser?.uid).collection('garage').get(),
+                                       builder: (context, snap) {
+                                       if (snap.hasData) {
+                                          var docs = (snap.data as QuerySnapshot).docs;
+                                          var costs = docs.map((d) => (d["total"][0]/12.0).toDouble());
+                                          double sum = 0;
+                                          for (var c in costs)
+                                             sum += c;
+                                          print(sum);
+                                          return Text('Your cars are costing you \$${sum.toStringAsFixed(2)}/month');
+                                          } else {
+                                             return SizedBox(
+                                             width: 100,
+                                             height: 100,
+                                             child: CircularProgressIndicator()
+                                            );
+                                          }
+                                       }
+                                    )
                                 ],
                               ),
                             ),
@@ -146,6 +166,13 @@ class _HomePageState extends State<HomePage> {
                                       return FutureBuilder<Object>(
                                         future: get_fuel_price(garageData[index]['vin']),
                                         builder: (context, fuel_snapshot) {
+                                        if (!fuel_snapshot.hasData) {
+                                          return SizedBox(
+                                            width: 50,
+                                            height: 50,
+                                            child: CircularProgressIndicator()
+                                          );
+                                        }
                                           return TextButton(
                                             onPressed: () {
                                               Navigator.of(context).push(CupertinoPageRoute(builder: (context) => VehiclePage(vin: garageData[index]['vin'])));

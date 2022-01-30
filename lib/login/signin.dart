@@ -21,6 +21,7 @@ class _SigninState extends State<Signin> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: NeumorphicTheme.baseColor(context),
+      resizeToAvoidBottomInset: false,
       body: Center(
         child: Column(
           children: [
@@ -172,7 +173,9 @@ class _SigninState extends State<Signin> {
                     onPressed: () {
                       FirebaseAuth.instance.signInWithEmailAndPassword(email: emailController.text, password: passwordController.text).then((value) {
                         Navigator.of(context).pushAndRemoveUntil(CupertinoPageRoute(builder: (context) => HomePage()),ModalRoute.withName('/login'));
-                      });
+                        
+                      }
+                      );
                     },
                   ),
                 ),
