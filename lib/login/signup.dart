@@ -21,6 +21,7 @@ class _SignupState extends State<Signup> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: NeumorphicTheme.baseColor(context),
+      resizeToAvoidBottomInset: false,
       body: Center(
         child: Column(
           children: [
