@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:tamuhackprojectlol/backend/api.dart';
+
+import 'home_page.dart';
 
 class Entry extends StatefulWidget {
   const Entry({Key? key}) : super(key: key);
@@ -36,7 +39,7 @@ class _EntryState extends State<Entry> {
             Container(
               width: 1000,
               height: 400,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   gradient: LinearGradient(
                       begin: FractionalOffset.topCenter,
                       end: FractionalOffset.bottomCenter,
@@ -136,7 +139,7 @@ class _EntryState extends State<Entry> {
                         child: NeumorphicButton(
                           style: NeumorphicStyle(
                             boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-                            color: const Color.fromRGBO(239, 83, 80, 1),
+                            color: const Color.fromRGBO(16, 196, 97, 1.0),
                           ),
                           child: SizedBox(
                             width: MediaQuery.of(context).size.width-96,
@@ -169,12 +172,14 @@ class _EntryState extends State<Entry> {
                               'make': makeModel['Make'],
                               'model': makeModel['Model'],
                               'vin': vinController.text,
-                              'year': makeModel['Year'],
+                              'year': makeModel['Model Year'],
                               'fuel': selectedCar.fuel,
                               'insurance': selectedCar.insurance,
                               'maintance': selectedCar.maintance,
                               'total': selectedCar.total,
                               'repairs': selectedCar.repairs,
+                            }).then((value) {
+                              Navigator.of(context).pushAndRemoveUntil(CupertinoPageRoute(builder: (context) => const HomePage()),ModalRoute.withName('/pages'));
                             });
                           },
                         ),

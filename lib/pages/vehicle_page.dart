@@ -102,11 +102,35 @@ class _VehiclePageState extends State<VehiclePage> {
 
                         Text(
                           'Monthly Cost',
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                         Text(
                           'Maintenance',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                         Text('${(snapshot.data as DocumentSnapshot)['maintance'][0]/12.0}/month'),
+                        Text(
+                          'Repair',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text('${(snapshot.data as DocumentSnapshot)['repair'][0]/12.0}/month'),
+                        Text(
+                          'Insurance',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text('${(snapshot.data as DocumentSnapshot)['insurance'][0]/12.0}/month'),
                       ],
                     );
                   }
@@ -141,4 +165,3 @@ class _VehiclePageState extends State<VehiclePage> {
     );
   }
 }
-
