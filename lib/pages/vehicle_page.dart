@@ -157,9 +157,10 @@ class _VehiclePageState extends State<VehiclePage> {
                 FutureBuilder<Object>(
                   future: get_fuel_price(),
                   builder: (context, fuel_snapshot) {
-                    if(snapshot.hasData) {
+                    if(fuel_snapshot.hasData) {
                       // We want to round the digits to 2, because cents are the smallest unit.
                       return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             'Current Fuel Cost \$${(fuel_snapshot.data as double).toStringAsFixed(2)}/mile',
@@ -172,7 +173,24 @@ class _VehiclePageState extends State<VehiclePage> {
                             '\$${((fuel_snapshot.data as double)*toDouble((snapshot.data as DocumentSnapshot)['permonth'])).toStringAsFixed(2)}/month',
                             style: TextStyle(
                               fontSize: 15,
-                              fontWeight: FontWeight.w300,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          Container(
+                            height: 28,
+                          ),
+                          Text(
+                            'Total Monthly Cost',
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          Text(
+                            '\$${((snapshot.data as DocumentSnapshot)['maintance'][0]/12.0+(snapshot.data as DocumentSnapshot)['repairs'][0]/12.0+(snapshot.data as DocumentSnapshot)['insurance'][0]/12.0+(fuel_snapshot.data as double)*toDouble((snapshot.data as DocumentSnapshot)['permonth'])).toStringAsFixed(2)}/month',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ],
