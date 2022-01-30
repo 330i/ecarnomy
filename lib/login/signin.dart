@@ -171,7 +171,7 @@ class _SigninState extends State<Signin> {
                     ),
                     onPressed: () {
                       FirebaseAuth.instance.signInWithEmailAndPassword(email: emailController.text, password: passwordController.text).then((value) {
-                        Navigator.of(context).pushAndRemoveUntil(CupertinoPageRoute(builder: (context) => const VehiclePage(vin: 'vin',)),ModalRoute.withName('/login'));
+                        Navigator.of(context).pushAndRemoveUntil(CupertinoPageRoute(builder: (context) => const VehiclePage(vin: '1FA6P8TH7G5208997',)),ModalRoute.withName('/login'));
                       });
                     },
                   ),
