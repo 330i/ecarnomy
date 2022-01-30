@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:tamuhackprojectlol/pages/entry.dart';
+import 'package:tamuhackprojectlol/pages/vehicle_page.dart';
 import 'signup.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:tamuhackprojectlol/pages/home_page.dart';
@@ -170,7 +171,7 @@ class _SigninState extends State<Signin> {
                     ),
                     onPressed: () {
                       FirebaseAuth.instance.signInWithEmailAndPassword(email: emailController.text, password: passwordController.text).then((value) {
-                        Navigator.of(context).pushAndRemoveUntil(CupertinoPageRoute(builder: (context) => const HomePage()),ModalRoute.withName('/login'));
+                        Navigator.of(context).pushAndRemoveUntil(CupertinoPageRoute(builder: (context) => const VehiclePage(vin: 'vin',)),ModalRoute.withName('/login'));
                       });
                     },
                   ),
