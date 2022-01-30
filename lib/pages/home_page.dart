@@ -125,6 +125,9 @@ class _HomePageState extends State<HomePage> {
                                       color: Colors.black,
                                     ),
                                   ),
+                                    Container(
+                                      height: 6,
+                                    ),
                                     FutureBuilder<Object>(
                                        future: FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser?.uid).collection('garage').get(),
                                        builder: (context, snap) {
@@ -135,7 +138,13 @@ class _HomePageState extends State<HomePage> {
                                           for (var c in costs)
                                              sum += c;
                                           print(sum);
-                                          return Text('Your cars are costing you \$${sum.toStringAsFixed(2)}/month');
+                                          return Text(
+                                            'Total: \$${sum.toStringAsFixed(2)}/month',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 16,
+                                            )
+                                          );
                                           } else {
                                              return SizedBox(
                                              width: 100,
@@ -222,8 +231,8 @@ class _HomePageState extends State<HomePage> {
                               boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
                               color: const Color.fromRGBO(16, 196, 97, 1.0),
                             ),
-                            child: SizedBox(
-                              width: MediaQuery.of(context).size.width-80,
+                            child: Container(
+                              width: MediaQuery.of(context).size.width-64,
                               height: 33,
                               child: Row(
                                 children: const [

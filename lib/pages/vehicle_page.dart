@@ -166,51 +166,15 @@ class _VehiclePageState extends State<VehiclePage> {
                                   );
                                 },
                               ),
-                              Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: const <Widget>[
-                                  Indicator(
-                                    color: Color.fromRGBO(128, 203, 196, 1),
-                                    text: 'Maintenance',
-                                    isSquare: true,
-                                  ),
-                                  SizedBox(
-                                    height: 4,
-                                  ),
-                                  Indicator(
-                                    color: Color.fromRGBO(255, 171, 145, 1),
-                                    text: 'Insurance',
-                                    isSquare: true,
-                                  ),
-                                  SizedBox(
-                                    height: 4,
-                                  ),
-                                  Indicator(
-                                    color: Color.fromRGBO(129, 199, 132, 1),
-                                    text: 'Repairs',
-                                    isSquare: true,
-                                  ),
-                                  SizedBox(
-                                    height: 4,
-                                  ),
-                                  Indicator(
-                                    color: Color.fromRGBO(220, 231, 117, 1),
-                                    text: 'Fuel',
-                                    isSquare: true,
-                                  ),
-                                  SizedBox(
-                                    height: 18,
-                                  ),
-                                ],
-                              ),
                               const SizedBox(
                                 width: 28,
                               ),
                             ],
                           ),
                         ),
+                      ),
+                      Container(
+                        height: 6,
                       ),
                     ],
                   ),
@@ -232,7 +196,49 @@ class _VehiclePageState extends State<VehiclePage> {
                             ),
                           ),
                           Container(
-                            height: 28,
+                            height: 6,
+                          ),
+                          Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const <Widget>[
+                              Indicator(
+                                color: Color.fromRGBO(128, 203, 196, 1),
+                                text: 'Maintenance',
+                                isSquare: true,
+                              ),
+                              SizedBox(
+                                height: 4,
+                              ),
+                              Indicator(
+                                color: Color.fromRGBO(255, 171, 145, 1),
+                                text: 'Insurance',
+                                isSquare: true,
+                              ),
+                              SizedBox(
+                                height: 4,
+                              ),
+                              Indicator(
+                                color: Color.fromRGBO(129, 199, 132, 1),
+                                text: 'Repairs',
+                                isSquare: true,
+                              ),
+                              SizedBox(
+                                height: 4,
+                              ),
+                              Indicator(
+                                color: Color.fromRGBO(220, 231, 117, 1),
+                                text: 'Fuel',
+                                isSquare: true,
+                              ),
+                              SizedBox(
+                                height: 18,
+                              ),
+                            ],
+                          ),
+                          Container(
+                            height: 6,
                           ),
                           Text(
                             'Total Monthly Cost',
