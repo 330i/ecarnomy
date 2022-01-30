@@ -75,7 +75,7 @@ class _VehiclePageState extends State<VehiclePage> {
             Container(
               height: 500,
               child: FutureBuilder<Object>(
-                future: FirebaseFirestore.instance.collection('users').doc('GlkZoRdAhzRgq5yKFybR').collection('garage').doc('1FA6P8TH7G5208997').get(),
+                future: FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser?.uid).collection('garage').doc(vin).get(),
                 builder: (context, snapshot) {
                   if(snapshot.hasData) {
                     return Column(
@@ -91,14 +91,6 @@ class _VehiclePageState extends State<VehiclePage> {
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        Text(
-                          (snapshot.data as DocumentSnapshot)['year'].toString(),
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black54,
-                          ),
-                        ),
 
                         Text(
                           'Monthly Cost',
@@ -112,25 +104,46 @@ class _VehiclePageState extends State<VehiclePage> {
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w500,
+                            color: Colors.black87,
                           ),
                         ),
-                        Text('${(snapshot.data as DocumentSnapshot)['maintance'][0]/12.0}/month'),
+                        Text(
+                          '\$${((snapshot.data as DocumentSnapshot)['maintance'][0]/12.0).toStringAsFixed(2)}/month',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                         Text(
                           'Repair',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w500,
+                            color: Colors.black87,
                           ),
                         ),
-                        Text('${(snapshot.data as DocumentSnapshot)['repair'][0]/12.0}/month'),
+                        Text(
+                          '\$${((snapshot.data as DocumentSnapshot)['repairs'][0]/12.0).toStringAsFixed(2)}/month',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                         Text(
                           'Insurance',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w500,
+                            color: Colors.black87,
                           ),
                         ),
-                        Text('${(snapshot.data as DocumentSnapshot)['insurance'][0]/12.0}/month'),
+                        Text(
+                          '\$${((snapshot.data as DocumentSnapshot)['insurance'][0]/12.0).toStringAsFixed(2)}/month',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                       ],
                     );
                   }

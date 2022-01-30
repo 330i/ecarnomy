@@ -7,6 +7,7 @@ import 'package:tamuhackprojectlol/backend/firebase.dart';
 import 'package:tamuhackprojectlol/backend/api.dart';
 import 'package:tamuhackprojectlol/pages/entry.dart';
 import 'package:scroll_app_bar/scroll_app_bar.dart';
+import 'package:tamuhackprojectlol/pages/vehicle_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -82,14 +83,19 @@ class _HomePageState extends State<HomePage> {
                                     shrinkWrap: true,
                                     itemCount: garageData.length,
                                     itemBuilder: (BuildContext context, int index) {
-                                      return Card(
-                                        child: ListTile(
-                                          leading: Icon(Icons.directions_car_rounded, size: 60,),
-                                          title: Text('${garageData[index]['make']} ${garageData[index]['model']}'),
-                                          subtitle: Text(
-                                              '${garageData[index]['year']} \n\$${(garageData[index]['total'][0]/12).toStringAsFixed(2)}/month \n${garageData[index]['milage']} MPG'
+                                      return TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).push(CupertinoPageRoute(builder: (context) => VehiclePage(vin: garageData[index]['vin'])));
+                                        },
+                                        child: Card(
+                                          child: ListTile(
+                                            leading: Icon(Icons.directions_car_rounded, size: 60,),
+                                            title: Text('${garageData[index]['make']} ${garageData[index]['model']}'),
+                                            subtitle: Text(
+                                                '${garageData[index]['year']} \n\$${(garageData[index]['total'][0]/12).toStringAsFixed(2)}/month \n${garageData[index]['milage']} MPG'
+                                            ),
+                                            isThreeLine: true,
                                           ),
-                                          isThreeLine: true,
                                         ),
                                       );
                                     },
