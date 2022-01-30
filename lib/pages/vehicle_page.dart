@@ -180,7 +180,7 @@ class _VehiclePageState extends State<VehiclePage> {
                                     height: 4,
                                   ),
                                   Indicator(
-                                    color: Color(0xfff8b250),
+                                    color: Color.fromRGBO(255, 171, 145, 1),
                                     text: 'Insurance',
                                     isSquare: true,
                                   ),
@@ -188,7 +188,7 @@ class _VehiclePageState extends State<VehiclePage> {
                                     height: 4,
                                   ),
                                   Indicator(
-                                    color: Color(0xff845bef),
+                                    color: Color.fromRGBO(129, 199, 132, 1),
                                     text: 'Repairs',
                                     isSquare: true,
                                   ),
@@ -196,7 +196,7 @@ class _VehiclePageState extends State<VehiclePage> {
                                     height: 4,
                                   ),
                                   Indicator(
-                                    color: Color(0xff13d38e),
+                                    color: Color.fromRGBO(220, 231, 117, 1),
                                     text: 'Fuel',
                                     isSquare: true,
                                   ),
@@ -281,7 +281,7 @@ class _VehiclePageState extends State<VehiclePage> {
       switch (i) {
         case 0:
           return PieChartSectionData(
-            color: const Color(0xff0293ee),
+            color: const Color.fromRGBO(128, 203, 196, 1),
             value: toDouble(maintenance),
             title: '\$${maintenance}/month',
             radius: radius,
@@ -292,7 +292,7 @@ class _VehiclePageState extends State<VehiclePage> {
           );
         case 1:
           return PieChartSectionData(
-            color: const Color(0xfff8b250),
+            color: const Color.fromRGBO(255, 171, 145, 1),
             value: toDouble(insurance),
             title: '\$${insurance}/month',
             radius: radius,
@@ -303,7 +303,7 @@ class _VehiclePageState extends State<VehiclePage> {
           );
         case 2:
           return PieChartSectionData(
-            color: const Color(0xff845bef),
+            color: const Color.fromRGBO(129, 199, 132, 1),
             value: toDouble(repairs),
             title: '\$${repairs}/month',
             radius: radius,
@@ -314,7 +314,7 @@ class _VehiclePageState extends State<VehiclePage> {
           );
         case 3:
           return PieChartSectionData(
-            color: const Color(0xff13d38e),
+            color: const Color.fromRGBO(220, 231, 117, 1),
             value: toDouble(fuel),
             title: '\$${fuel}/month',
             radius: radius,
