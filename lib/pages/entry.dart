@@ -176,6 +176,7 @@ class _EntryState extends State<Entry> {
                               'fuel': selectedCar.fuel,
                               'insurance': selectedCar.insurance,
                               'maintance': selectedCar.maintance,
+                              'deprication': selectedCar.deprication,
                               'total': selectedCar.total,
                               'repairs': selectedCar.repairs,
                             }).then((value) {

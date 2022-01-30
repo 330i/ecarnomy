@@ -13,6 +13,7 @@ class Car {
    final List<dynamic> repairs;
    final List<dynamic> fuel;
    final List<dynamic> total;
+   final List<dynamic> deprication;
    final int milage;
    Car({
       required this.make,
@@ -24,6 +25,7 @@ class Car {
       required this.maintance,
       required this.repairs,
       required this.fuel, 
+      required this.deprication,
       required this.total,
       required this.milage
    });
@@ -39,7 +41,8 @@ class Car {
          "repairs": repairs,
          "fuel": fuel,
          "total": total,
-         "milage": milage
+         "milage": milage,
+         "deprication": deprication
       };
    }
    Car.fromJson(Map<String, Object?> json) : this(
@@ -53,6 +56,7 @@ class Car {
             total: json["total"]! as List<dynamic>,
             milage: json["milage"]! as int,
             vin: json["vin"]! as String,
+            deprication: json["deprication"]! as List<dynamic>
             );
 }
 
@@ -165,6 +169,7 @@ Future<Car> get_car(String vin) async {
       maintance: data["maintenance_cost"],
       repairs: data["repairs_cost"],
       fuel: data["fuel_cost"],
+      deprication: data["depreciation_cost"],
       total: data["total_cost"],
       milage: gas["milage"],
    );

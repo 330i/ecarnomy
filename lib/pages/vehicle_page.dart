@@ -65,7 +65,6 @@ class _VehiclePageState extends State<VehiclePage> {
   Widget build(BuildContext context) {
     String vin = widget.vin;
     get_this_car().then((car) => {
-
     });
     return Scaffold(
       body: Padding(
@@ -144,6 +143,21 @@ class _VehiclePageState extends State<VehiclePage> {
                             fontWeight: FontWeight.w500,
                           ),
                         ),
+                        Text(
+                           'Deprecation',
+                           style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black87
+                              )
+                        ),
+                        Text(
+                           '\$${((snapshot.data as DocumentSnapshot)["deprication"][0]/12.0).toStringAsFixed(2)}/month',
+                           style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500,
+                              )
+                         )
                       ],
                     );
                   }
