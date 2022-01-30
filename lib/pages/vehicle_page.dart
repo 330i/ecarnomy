@@ -24,8 +24,15 @@ class _VehiclePageState extends State<VehiclePage> {
     currentCar = await get_car(widget.vin);
   }
 
-  Future<String> get_fuel_price() async {
-    var api_endpoint = Uri.parse("https://fueleconomy.gov/ws/rest/vehicle/${get_id(await get_makes(widget.vin))}");
+  Future<double> get_fuel_price() async {
+    // This returns the fuel cost per mile
+    // Which should be given by the formula MPG/ Cost of a gallon
+    print("getting feul price");
+    var id = await get_id(await get_makes(widget.vin));
+    print("===");
+    print(id);
+    print("===");
+    var api_endpoint = Uri.parse("https://fueleconomy.gov/ws/rest/vehicle/${id}");
     print(api_endpoint);
     var response = await http.get(api_endpoint);
     if (response.statusCode != 200) {
@@ -33,27 +40,25 @@ class _VehiclePageState extends State<VehiclePage> {
       print(response.body);
       throw InvalidResponse;
     }
-    print (response.body);
+    // We get the type of gas that the car uses so we can get the right price later
     var doc = XmlDocument.parse(response.body).getElement("vehicle");
-    var gas = doc?.getElement("fuelType");
+    var gas = doc?.getElement("fuelType")?.text.toLowerCase();
     if (gas == null) {
       throw InvalidResponse;
     }
-    var api_fuel_endpoint = Uri.parse("https://fueleconomy.gov/ws/rest/fuelprices");
-    var fuel_response = await http.get(api_fuel_endpoint);
-    if (fuel_response.statusCode != 200) {
+
+    var price_endpoint = Uri.parse("https://www.fueleconomy.gov/ws/rest/fuelprices");
+    response = await http.get(price_endpoint);
+    if (response.statusCode != 200) {
       print("Not a good response");
-      print(fuel_response.body);
+      print(response.body);
       throw InvalidResponse;
     }
-    print (fuel_response.body);
-    var fuel_doc = XmlDocument.parse(fuel_response.body).getElement("fuelPrices");
-    print(gas.innerText.substring(0, gas.innerText.contains(' ') ? gas.innerText.indexOf(' ') : gas.innerText.length).toLowerCase());
-    var price = fuel_doc?.getElement(gas.innerText.substring(0, gas.innerText.contains(' ') ? gas.innerText.indexOf(' ') : gas.innerText.length).toLowerCase());
-    if (price == null) {
-      throw InvalidResponse;
-    }
-    return price.innerText;
+    doc = XmlDocument.parse(response.body).getElement("fuelPrices");
+    // This is where we use the type of gas the car uses
+    var cost = double.parse(doc?.getElement(gas)?.text ?? "");
+
+    return cost / currentCar.milage;
   }
 
   @override
@@ -122,7 +127,8 @@ class _VehiclePageState extends State<VehiclePage> {
               future: get_fuel_price(),
               builder: (context, snapshot) {
                 if(snapshot.hasData) {
-                  return Text('Current Fuel Cost ${snapshot.data}');
+                  // We want to round the digits to 2, because cents are the smallest unit.
+                  return Text('Current Fuel Cost ${(snapshot.data as double).toStringAsFixed(2)}');
                 }
                 else {
                   return CircularProgressIndicator();
