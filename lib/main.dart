@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-      appBar: AppBar(title: Text('Name of App')),
+      appBar: AppBar(title: Center(child: Text('Name of App'))),
       body: Column(
           children: <Widget>[
             Padding(
