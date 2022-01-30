@@ -24,6 +24,8 @@ class _VehiclePageState extends State<VehiclePage> {
     currentCar = await get_car(widget.vin);
   }
 
+  bool include_dep = false;
+
   Future<double> get_fuel_price() async {
     // This returns the fuel cost per mile
     // Which should be given by the formula MPG/ Cost of a gallon
@@ -66,6 +68,7 @@ class _VehiclePageState extends State<VehiclePage> {
     String vin = widget.vin;
     get_this_car().then((car) => {
     });
+
     return Scaffold(
       body: FutureBuilder<Object>(
         future: FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser?.uid).collection('garage').doc(vin).get(),
@@ -156,6 +159,7 @@ class _VehiclePageState extends State<VehiclePage> {
                 FutureBuilder<Object>(
                   future: get_fuel_price(),
                   builder: (context, fuel_snapshot) {
+                    print(fuel_snapshot.hasData);
                     if(fuel_snapshot.hasData) {
                       // We want to round the digits to 2, because cents are the smallest unit.
                       return Column(
@@ -186,12 +190,21 @@ class _VehiclePageState extends State<VehiclePage> {
                             ),
                           ),
                           Text(
-                            '\$${((snapshot.data as DocumentSnapshot)['maintance'][0]/12.0+(snapshot.data as DocumentSnapshot)['repairs'][0]/12.0+(snapshot.data as DocumentSnapshot)['insurance'][0]/12.0+(fuel_snapshot.data as double)*toDouble((snapshot.data as DocumentSnapshot)['permonth'])).toStringAsFixed(2)}/month',
+                            '\$${( !include_dep ? ((snapshot.data as DocumentSnapshot)['maintance'][0]/12.0+(snapshot.data as DocumentSnapshot)['repairs'][0]/12.0+(snapshot.data as DocumentSnapshot)['insurance'][0]/12.0+(fuel_snapshot.data as double)*toDouble((snapshot.data as DocumentSnapshot)['permonth'])) : (snapshot.data as DocumentSnapshot)['total'][0]/12.0).toStringAsFixed(2)}/month',
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
+                          CheckboxListTile(
+                            value: include_dep,
+                            title: Text("Include deprecation costs"),
+                            onChanged: (bool? v) {
+                               setState(() {
+                                  include_dep = v ?? false;
+                               });
+                            }
+                          )
                         ],
                       );
                     }
