@@ -3,6 +3,11 @@ import 'package:xml/xml.dart';
 import 'dart:convert';
 
 class Car {
+   final String model;
+   final String make;
+   final String vin;
+   final int year;
+
    final List<dynamic> insurance;
    final List<dynamic> maintance;
    final List<dynamic> repairs;
@@ -10,6 +15,11 @@ class Car {
    final List<dynamic> total;
    final int milage;
    Car({
+      required this.make,
+      required this.model,
+      required this.year,
+      required this.vin,
+
       required this.insurance, 
       required this.maintance,
       required this.repairs,
@@ -17,6 +27,33 @@ class Car {
       required this.total,
       required this.milage
    });
+
+   Map<String, Object?> toJson() {
+      return {
+         "vin": vin,
+         "make": make,
+         "model": model,
+         "year": year,
+         "insurance": insurance,
+         "maintance": maintance,
+         "repairs": repairs,
+         "fuel": fuel,
+         "total": total,
+         "milage": milage
+      };
+   }
+   Car.fromJson(Map<String, Object?> json) : this(
+            make: json["make"]! as String,
+            model: json["model"]! as String,
+            year: json["year"]! as int,
+            insurance: json["insurance"]! as List<dynamic>,
+            maintance: json["maintance"]! as List<dynamic>,
+            repairs: json["repairs"]! as List<dynamic>,
+            fuel: json["fuel"]! as List<dynamic>,
+            total: json["total"]! as List<dynamic>,
+            milage: json["milage"]! as int,
+            vin: json["vin"]! as String,
+            );
 }
 
 class NotGoodMap implements Exception {
@@ -117,6 +154,10 @@ Future<Car> get_car(String vin) async {
    var gas = await get_fuel(id);
    print(data);
    return Car(
+      vin: vin,
+      make: makes["Make"] ?? "",
+      model: makes["Model"] ?? "",
+      year: int.parse(makes["Model Year"] ?? ""),
       insurance: data["insurance_cost"],
       maintance: data["maintenance_cost"],
       repairs: data["repairs_cost"],
