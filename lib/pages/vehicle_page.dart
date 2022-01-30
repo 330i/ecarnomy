@@ -37,14 +37,15 @@ class _VehiclePageState extends State<VehiclePage> {
     }
     var api_fuel_endpoint = Uri.parse("https://fueleconomy.gov/ws/rest/fuelprices");
     var fuel_response = await http.get(api_fuel_endpoint);
-    if (response.statusCode != 200) {
+    if (fuel_response.statusCode != 200) {
       print("Not a good response");
-      print(response.body);
+      print(fuel_response.body);
       throw InvalidResponse;
     }
-    print (response.body);
-    var fuel_doc = XmlDocument.parse(response.body).getElement("fuelPrices");
-    var price = fuel_doc?.getElement(fuel_response.toString().substring(0, fuel_response.toString().indexOf(' ')).toLowerCase());
+    print (fuel_response.body);
+    var fuel_doc = XmlDocument.parse(fuel_response.body).getElement("fuelPrices");
+    print(gas.innerText.substring(0, gas.innerText.contains(' ') ? gas.innerText.indexOf(' ') : gas.innerText.length).toLowerCase());
+    var price = fuel_doc?.getElement(gas.innerText.substring(0, gas.innerText.contains(' ') ? gas.innerText.indexOf(' ') : gas.innerText.length).toLowerCase());
     if (price == null) {
       throw InvalidResponse;
     }
@@ -101,10 +102,10 @@ class _VehiclePageState extends State<VehiclePage> {
             future: get_fuel_price('19827'),
             builder: (context, snapshot) {
               if(snapshot.hasData) {
-                return Text('Current Fuel Cost ${get_fuel_price('12532')}');
+                return Text('Current Fuel Cost ${snapshot.data}');
               }
               else {
-                return Container();
+                return CircularProgressIndicator();
               }
             },
           ),
