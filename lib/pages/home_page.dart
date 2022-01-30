@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:tamuhackprojectlol/backend/firebase.dart';
 import 'package:tamuhackprojectlol/backend/api.dart';
+import 'package:tamuhackprojectlol/login/signup.dart';
 import 'package:tamuhackprojectlol/pages/entry.dart';
 import 'package:scroll_app_bar/scroll_app_bar.dart';
 import 'package:tamuhackprojectlol/pages/vehicle_page.dart';
@@ -84,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
-                                    children: const [
+                                    children: [
                                       Text(
                                         'Welcome',
                                         style: TextStyle(
@@ -95,7 +96,25 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                       Spacer(
                                         flex: 1,
-                                      )
+                                      ),
+                                      Text(
+                                        'Sign out',
+                                        style: TextStyle(
+                                          color: Colors.redAccent,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      IconButton(
+                                        onPressed: () {
+                                          FirebaseAuth.instance.signOut().then((value) {
+                                            Navigator.of(context).pushAndRemoveUntil(CupertinoPageRoute(builder: (context) => Signup()),ModalRoute.withName('/pages'));
+                                          });
+                                        },
+                                        icon: Icon(
+                                          Icons.exit_to_app,
+                                          color: Colors.redAccent,
+                                        ),
+                                      ),
                                     ],
                                   ),
                                   Text(

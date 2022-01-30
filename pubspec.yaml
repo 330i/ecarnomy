@@ -35,6 +35,7 @@ dependencies:
   firebase_core: ^1.12.0
   validators: ^3.0.0
   scroll_app_bar: ^2.0.0
+  fl_chart: ^0.41.0
 
   flutter:
     sdk: flutter
