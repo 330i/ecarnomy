@@ -19,12 +19,16 @@ class MyApp extends StatelessWidget {
               child: Text('Hello', style: TextStyle(fontSize: 50.0, fontWeight: FontWeight. bold),),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 30),
               child: Text('Find your car', style: TextStyle(fontSize: 30.0, fontWeight: FontWeight. bold),),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
               child: Entry(),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text('Enter your VIN above'),
             ),
           ]
         ),
