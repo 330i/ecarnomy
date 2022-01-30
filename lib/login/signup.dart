@@ -213,6 +213,8 @@ class _SignupState extends State<Signup> {
                       FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailController.text, password: passwordController.text).then((value) {
                         FirebaseFirestore.instance.collection('users').doc(value.user!.uid).set({
                           'uid': value.user!.uid,
+                          'name': nameController.text,
+                          'email': emailController.text,
                         }).then((value) {
                           Navigator.of(context).pushAndRemoveUntil(CupertinoPageRoute(builder: (context) => const HomePage()),ModalRoute.withName('/login'));
                         });
