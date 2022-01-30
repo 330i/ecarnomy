@@ -86,7 +86,10 @@ Future<String> get_id(Map<String, String> m) async {
       throw InvalidResponse;
    for(var t in text)
       print(t);
+
    var found_m = text.where((d) => d?.toLowerCase() == m["Model"]?.toLowerCase()).toList();
+   print(m["Make"]);
+   print(m["Model"]);
    print(found_m);
    var model = found_m[0];
 
