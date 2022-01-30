@@ -23,6 +23,7 @@ class VehiclePage extends StatefulWidget {
 
 class _VehiclePageState extends State<VehiclePage> {
   int touchedIndex = -1;
+  bool disp_dep = false;
   late Car currentCar;
 
   Future get_this_car() async {
@@ -127,6 +128,8 @@ class _VehiclePageState extends State<VehiclePage> {
                               FutureBuilder<Object>(
                                 future: get_fuel_price(),
                                 builder: (context, fuel_snapshot) {
+                                  if (!fuel_snapshot.hasData)
+                                    return Text("Loading, please wait");
                                   return Expanded(
                                     child: AspectRatio(
                                       aspectRatio: 1,
@@ -215,6 +218,19 @@ class _VehiclePageState extends State<VehiclePage> {
                     ],
                   ),
                 ),
+               Row(
+                     children: <Widget>[
+                     Checkbox(
+                        value: disp_dep,
+                        onChanged: (bool? v) {
+                        setState(() {
+                           disp_dep = v ?? false;
+                              });
+                        }
+                        ),
+                        Text("Include deprecation")
+                     ]
+                  ),
                 FutureBuilder<Object>(
                   future: get_fuel_price(),
                   builder: (context, fuel_snapshot) {
