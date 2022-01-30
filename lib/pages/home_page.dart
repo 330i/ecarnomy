@@ -147,6 +147,13 @@ class _HomePageState extends State<HomePage> {
                                       return FutureBuilder<Object>(
                                         future: get_fuel_price(garageData[index]['vin']),
                                         builder: (context, fuel_snapshot) {
+                                        if (!fuel_snapshot.hasData) {
+                                          return SizedBox(
+                                            width: 50,
+                                            height: 50,
+                                            child: CircularProgressIndicator()
+                                          );
+                                        }
                                           return TextButton(
                                             onPressed: () {
                                               Navigator.of(context).push(CupertinoPageRoute(builder: (context) => VehiclePage(vin: garageData[index]['vin'])));
