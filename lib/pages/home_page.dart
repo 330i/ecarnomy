@@ -8,6 +8,9 @@ import 'package:tamuhackprojectlol/backend/api.dart';
 import 'package:tamuhackprojectlol/pages/entry.dart';
 import 'package:scroll_app_bar/scroll_app_bar.dart';
 import 'package:tamuhackprojectlol/pages/vehicle_page.dart';
+import 'package:validators/sanitizers.dart';
+import 'package:http/http.dart' as http;
+import 'package:xml/xml.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -17,6 +20,44 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  Future<double> get_fuel_price(String vin) async {
+    Car currentCar = await get_car(vin);
+    // This returns the fuel cost per mile
+    // Which should be given by the formula MPG/ Cost of a gallon
+    print("getting feul price");
+    var id = await get_id(await get_makes(vin));
+    print("===");
+    print(id);
+    print("===");
+    var api_endpoint = Uri.parse("https://fueleconomy.gov/ws/rest/vehicle/${id}");
+    print(api_endpoint);
+    var response = await http.get(api_endpoint);
+    if (response.statusCode != 200) {
+      print("Not a good response");
+      print(response.body);
+      throw InvalidResponse;
+    }
+    // We get the type of gas that the car uses so we can get the right price later
+    var doc = XmlDocument.parse(response.body).getElement("vehicle");
+    var gas = doc?.getElement("fuelType")?.text.toLowerCase();
+    if (gas == null) {
+      throw InvalidResponse;
+    }
+
+    var price_endpoint = Uri.parse("https://www.fueleconomy.gov/ws/rest/fuelprices");
+    response = await http.get(price_endpoint);
+    if (response.statusCode != 200) {
+      print("Not a good response");
+      print(response.body);
+      throw InvalidResponse;
+    }
+    doc = XmlDocument.parse(response.body).getElement("fuelPrices");
+    // This is where we use the type of gas the car uses
+    var cost = double.parse(doc?.getElement(gas)?.text ?? "");
+
+    return cost / currentCar.milage;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,20 +144,25 @@ class _HomePageState extends State<HomePage> {
                                     shrinkWrap: true,
                                     itemCount: garageData.length,
                                     itemBuilder: (BuildContext context, int index) {
-                                      return TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).push(CupertinoPageRoute(builder: (context) => VehiclePage(vin: garageData[index]['vin'])));
-                                        },
-                                        child: Card(
-                                          child: ListTile(
-                                            leading: Icon(Icons.directions_car_rounded, size: 60,),
-                                            title: Text('${garageData[index]['make']} ${garageData[index]['model']}'),
-                                            subtitle: Text(
-                                                '${garageData[index]['year']} \n\$${(garageData[index]['total'][0]/12).toStringAsFixed(2)}/month \n${garageData[index]['milage']} MPG'
+                                      return FutureBuilder<Object>(
+                                        future: get_fuel_price(garageData[index]['vin']),
+                                        builder: (context, fuel_snapshot) {
+                                          return TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).push(CupertinoPageRoute(builder: (context) => VehiclePage(vin: garageData[index]['vin'])));
+                                            },
+                                            child: Card(
+                                              child: ListTile(
+                                                leading: Icon(Icons.directions_car_rounded, size: 60,),
+                                                title: Text('${garageData[index]['make']} ${garageData[index]['model']}'),
+                                                subtitle: Text(
+                                                    '${garageData[index]['year']} \n\$${(garageData[index]['maintance'][0]/12.0+garageData[index]['repairs'][0]/12.0+garageData[index]['insurance'][0]/12.0+(fuel_snapshot.data as double)*toDouble(garageData[index]['permonth'])).toStringAsFixed(2)}/month \n${garageData[index]['milage']} MPG'
+                                                ),
+                                                isThreeLine: true,
+                                              ),
                                             ),
-                                            isThreeLine: true,
-                                          ),
-                                        ),
+                                          );
+                                        },
                                       );
                                     },
                                   ),
@@ -125,7 +171,7 @@ class _HomePageState extends State<HomePage> {
                               else {
                                 return Center(
                                   child: Container(
-                                    child: CircularProgressIndicator(),
+                                    child: Text('Hi there,\nadd your vehicle'),
                                   ),
                                 );
                               }
